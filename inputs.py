@@ -17,8 +17,13 @@ class pot:
     def read_u16(self):
         return self.pot.value
     
-    def percent(self):
-        return extramath.Map(self.pot.value, 0, 65535, 0, 100)
+    def percent(self, round=False):
+        self.value = extramath.Map(self.pot.value, 0, 65535, 0, 100)
+        
+        if round:
+            self.value = round(self.value)
+            
+        return self.value
     
     def unitInterval(self):
         return self.pot.value / 65535

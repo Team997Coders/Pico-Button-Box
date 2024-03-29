@@ -13,7 +13,13 @@ class led:
         self.led.duty_cycle = 0
     
     def duty(self, duty):
-        self.led.duty_cycle = duty
+        try:
+            self.led.duty_cycle = duty
+        except:
+            print("invalid duty cycle")
     
     def percent(self, percent):
-        self.led.duty_cycle = extramath.Map(percent, 0, 100, 0, 65535)
+        try:
+            self.led.duty_cycle = extramath.Map(percent, 0, 100, 0, 65535)
+        except:
+            print("invalid duty cycle")

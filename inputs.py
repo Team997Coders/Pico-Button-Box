@@ -2,7 +2,7 @@ import digitalio
 import analogio
 import extramath
 
-class sw:
+class sw: #confirmed as fully working
     def __init__(self, pin): #pin must be board.GP##
         self.sw = digitalio.DigitalInOut(pin)
         self.sw.switch_to_input(pull=digitalio.Pull.DOWN)

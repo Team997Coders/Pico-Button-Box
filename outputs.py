@@ -1,4 +1,4 @@
-import digitalio
+import digitalio ## Might be unecessary with the use of PWM for LED
 import pwmio
 import extramath
 

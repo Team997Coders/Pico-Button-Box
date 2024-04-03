@@ -1,10 +1,9 @@
-import inputs, outputs
+import inputs
 import board
 import time
 
-board_led = outputs.led(board.LED)
-button = inputs.sw(board.GP15)
+potentiometer = inputs.pot(board.GP26)
 
 while True:
-    board_led.value(button.read())
+    print(potentiometer.joy())
     time.sleep(0.1)

@@ -10,23 +10,23 @@ class sw: #confirmed as fully working
     def read(self):
         return self.sw.value
     
-class pot:
+class pot: #IN TESTING PROCESS - NONFUNCTIONAL
     def __init__(self, pin): #pin must be board.GP##
         self.pot = analogio.AnalogIn(pin)
         
-    def read_u16(self):
+    def read_u16(self): #confirmed as working
         return self.pot.value
     
-    def percent(self, round=False):
+    def percent(self, rounding=False): #confirmed as working
         self.value = extramath.Map(self.pot.value, 0, 65535, 0, 100)
         
-        if round:
+        if rounding:
             self.value = round(self.value)
             
         return self.value
     
-    def unitInterval(self):
+    def unitInterval(self): #confirmed as working
         return self.pot.value / 65535
     
-    def joy(self):
+    def joy(self): #confirmed as working
         return (self.pot.value / 32767.5) - 1

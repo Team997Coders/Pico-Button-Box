@@ -1,9 +1,37 @@
-import inputs
 import board
-import time
+import digitalio
+import analogio
+import usb_hid
+import extramath
 
-potentiometer = inputs.pot(board.GP26, trim_min=530, trim_max=65535)
+from hid_gamepad import Gamepad
+
+gp = Gamepad(usb_hid.devices)
+
+button_pins = (board.GP00, board.GP01)
+
+gamepad_buttons = (1, 2)
+
+buttons = [digitalio.DigitalInOut(pin) for pin in button_pins]
+for button in buttons:
+    button.direction = digitalio.Direction.INPUT
+    button.pull = digitalio.Pull.UP
+    
+ax = analogio.AnalogIn(board.GP26)
+ay = analogio.AnalogIn(board.GP27)
 
 while True:
-    print(potentiometer.joy())
-    time.sleep(0.1)
+    for i, button in enumerate(buttons):
+        gamepad_button_num = gamepad_buttons[i]
+        if button.value:
+            gp.release_buttons(gamepad_button_num)
+            print(" release", gamepad_button_num, end="")
+        else:
+            gp.press_buttons(gamepad_button_num)
+            print(" press", gamepad_button_num, end="")
+            
+    gp.move_joysticks(
+        x = extramath.Map(ax.value, 0, 65535, -127, 127),
+        y = extramath.Map(ay.value, 0, 65535, -127, 127),
+    )
+    print(" x", ax.value, "y", ax.value)

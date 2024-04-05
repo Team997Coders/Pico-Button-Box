@@ -4,7 +4,7 @@ import analogio
 import usb_hid
 import extramath
 
-from adafruit_hid.gamepad import Gamepad #used alternate import, NEEDS TESTING
+from hid_gamepad import Gamepad #used alternate import, NEEDS TESTING
 
 gp = Gamepad(usb_hid.devices) #boot.py file needs to be updated??
 
